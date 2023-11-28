@@ -54,7 +54,7 @@
     }
 
     input {
-      width: 91.5%;        
+      width: 90.75%;        
       padding: 10px;
       margin-bottom: 10px;
       border: 1px solid #ccc;
@@ -88,8 +88,33 @@
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 1s;
+      animation: fadeInDrop 1.5s ease;
       margin-bottom: 185px;
+    }
+
+    #loading-message {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      display: none; /* Initially hidden */
+      animation: fadeInDrop 1.5s ease, fadeOutRise 1.5s ease;
+    }
+
+    @keyframes fadeOutRise {
+      0% {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
     }
   </style>
 </head>
@@ -102,11 +127,15 @@
     <input type="text" id="videoUrl" placeholder="Enter YouTube media URL">
     <button onclick="downloadVideo()">Download</button>
   </div>
+  <div id="loading-message">Loading...</div>
+
     <script>
         function downloadVideo() {
             const videoUrl = document.getElementById('videoUrl').value;
             const videoCode = extractVideoCode(videoUrl);
             const apiUrl = `https://youtube-video-and-shorts-downloader1.p.rapidapi.com/api/getYTVideo?url=https%3A%2F%2Fyoutu.be%2F${videoCode}`;
+
+            document.getElementById('loading-message').style.display = 'block';
 
             fetch(apiUrl, {
                 headers: {
@@ -124,8 +153,13 @@
                 } else {
                     alert('No download link found for the media.');
                 }
+
+                document.getElementById('loading-message').style.display = 'none';
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loading-message').style.display = 'none';
+            });
         }
 
         function extractVideoCode(url) {
