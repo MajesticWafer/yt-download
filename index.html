@@ -154,11 +154,15 @@
                     alert('No download link found for the media.');
                 }
 
-                document.getElementById('loading-message').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('loading-message').style.display = 'none';
+                }, 1500);
             })
             .catch(error => {
                 console.error('Error:', error);
-                document.getElementById('loading-message').style.display = 'none';
+                setTimeout(() => {
+                    document.getElementById('loading-message').style.display = 'none';
+                }, 1500);
             });
         }
 
