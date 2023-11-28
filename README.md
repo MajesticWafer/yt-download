@@ -1,2 +1,3 @@
 # yt-download
-A simple YouTube video downloader
+
+A simple, yet easy-to-use YouTube media downloader. Still in early development!
