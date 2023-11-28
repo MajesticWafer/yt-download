@@ -103,17 +103,17 @@
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       display: none; /* Initially hidden */
-      animation: fadeInDrop 1.5s ease;
+      animation: fadeInZoom 1.5s ease;
     }
 
-    @keyframes fadeOutRise {
+    @keyframes fadeInZoom {
       0% {
-        opacity: 1;
-        transform: translateY(0px);
+        opacity: 0;
+        transform: scale(.95);
       }
       100% {
-        opacity: 0;
-        transform: translateY(-20px);
+        opacity: 1;
+        transform: scale(1);
       }
     }
   </style>
