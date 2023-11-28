@@ -103,7 +103,7 @@
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       display: none; /* Initially hidden */
-      animation: fadeInDrop 1.5s ease, fadeOutRise 1.5s ease;
+      animation: fadeInDrop 1.5s ease;
     }
 
     @keyframes fadeOutRise {
@@ -156,13 +156,13 @@
 
                 setTimeout(() => {
                     document.getElementById('loading-message').style.display = 'none';
-                }, 1500);
+                }, 100);
             })
             .catch(error => {
                 console.error('Error:', error);
                 setTimeout(() => {
                     document.getElementById('loading-message').style.display = 'none';
-                }, 1500);
+                }, 100);
             });
         }
 
