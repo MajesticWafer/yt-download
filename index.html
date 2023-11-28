@@ -3,36 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Video Downloader</title>
+    <title>YouTube Media Downloader</title>
 </head>
 <body>
-    <h1>YouTube Video Downloader</h1>
-    <input type="text" id="videoUrl" placeholder="Enter YouTube video URL">
-    <button onclick="viewVideo()">View</button>
+    <h1>YouTube Media Downloader</h1>
+    <input type="text" id="videoUrl" placeholder="Enter YouTube media URL">
     <button onclick="downloadVideo()">Download</button>
 
     <script>
-        function viewVideo() {
-            const videoUrl = document.getElementById('videoUrl').value;
-            const videoCode = extractVideoCode(videoUrl);
-            const apiUrl = `https://youtube-video-and-shorts-downloader1.p.rapidapi.com/api/getYTVideo?url=https%3A%2F%2Fyoutu.be%2F${videoCode}`;
-
-            fetch(apiUrl, {
-                headers: {
-                    'X-Rapidapi-Key': '81890fe94emsh9147f5acfd2e9ddp1bdeacjsnbe04dd42a54f',
-                    'X-Rapidapi-Host': 'youtube-video-and-shorts-downloader1.p.rapidapi.com'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                const videoUrl = data.url;
-                alert(videoURL)
-                window.open(videoUrl, '_blank');
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
         function downloadVideo() {
             const videoUrl = document.getElementById('videoUrl').value;
             const videoCode = extractVideoCode(videoUrl);
@@ -47,13 +25,13 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                const videoUrl = data.url;
-                const link = document.createElement('a');
-                link.href = videoUrl;
-                link.download = 'video.mp4';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+
+                if (data.links && data.links.length > 0) {
+                    const videoDownloadUrl = data.links[0].url;
+                    window.open(videoDownloadUrl, '_blank');
+                } else {
+                    alert('No download link found for the media.');
+                }
             })
             .catch(error => console.error('Error:', error));
         }
